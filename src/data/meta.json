@@ -1,0 +1,20 @@
+{
+  "operators": {
+    "source": "ArknightsGameData (EN): character_table, skill_table, uniequip_table, building_data",
+    "version": null,
+    "count": 434,
+    "generatedAt": "2026-10-25T08:36:31.117Z"
+  },
+  "materials": {
+    "source": "ArknightsGameData (EN): item_table",
+    "version": null,
+    "count": 736,
+    "generatedAt": "2026-10-25T07:33:51.415Z"
+  },
+  "music": {
+    "source": "Monster Siren Records",
+    "albums": 298,
+    "count": 911,
+    "generatedAt": "2026-10-25T07:33:51.536Z"
+  }
+}

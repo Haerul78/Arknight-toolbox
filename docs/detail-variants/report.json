@@ -1,0 +1,132 @@
+[
+  {
+    "operator": "Exusiai (6★)",
+    "size": "desktop-1440x900",
+    "variant": "A  Dossier (current)",
+    "pageHeight": 2181,
+    "aboveFold": [
+      "Stats at max level",
+      "Range",
+      "Skills (3)",
+      "Skill detail, Level 7 and Mastery 3"
+    ],
+    "statNumbersAboveFold": 36,
+    "screens": 2.4
+  },
+  {
+    "operator": "Exusiai (6★)",
+    "size": "desktop-1440x900",
+    "variant": "B  Balanced",
+    "pageHeight": 2235,
+    "aboveFold": [
+      "Stats",
+      "Skills (3)"
+    ],
+    "statNumbersAboveFold": 8,
+    "screens": 2.5
+  },
+  {
+    "operator": "Exusiai (6★)",
+    "size": "desktop-1440x900",
+    "variant": "C  Impression first",
+    "pageHeight": 1866,
+    "aboveFold": [],
+    "statNumbersAboveFold": 4,
+    "screens": 2.1
+  },
+  {
+    "operator": "Exusiai (6★)",
+    "size": "mobile-390x844",
+    "variant": "A  Dossier (current)",
+    "pageHeight": 4214,
+    "aboveFold": [
+      "Stats at max level"
+    ],
+    "statNumbersAboveFold": 0,
+    "screens": 5
+  },
+  {
+    "operator": "Exusiai (6★)",
+    "size": "mobile-390x844",
+    "variant": "B  Balanced",
+    "pageHeight": 4229,
+    "aboveFold": [],
+    "statNumbersAboveFold": 0,
+    "screens": 5
+  },
+  {
+    "operator": "Exusiai (6★)",
+    "size": "mobile-390x844",
+    "variant": "C  Impression first",
+    "pageHeight": 2760,
+    "aboveFold": [],
+    "statNumbersAboveFold": 2,
+    "screens": 3.3
+  },
+  {
+    "operator": "Fang (3★)",
+    "size": "desktop-1440x900",
+    "variant": "A  Dossier (current)",
+    "pageHeight": 1253,
+    "aboveFold": [
+      "Stats at max level, up to Elite 1",
+      "Range",
+      "Skills (1)",
+      "Talents",
+      "Base skills"
+    ],
+    "statNumbersAboveFold": 27,
+    "screens": 1.4
+  },
+  {
+    "operator": "Fang (3★)",
+    "size": "desktop-1440x900",
+    "variant": "B  Balanced",
+    "pageHeight": 1482,
+    "aboveFold": [
+      "Stats",
+      "Skills (1)",
+      "Details"
+    ],
+    "statNumbersAboveFold": 8,
+    "screens": 1.6
+  },
+  {
+    "operator": "Fang (3★)",
+    "size": "desktop-1440x900",
+    "variant": "C  Impression first",
+    "pageHeight": 1546,
+    "aboveFold": [],
+    "statNumbersAboveFold": 4,
+    "screens": 1.7
+  },
+  {
+    "operator": "Fang (3★)",
+    "size": "mobile-390x844",
+    "variant": "A  Dossier (current)",
+    "pageHeight": 2337,
+    "aboveFold": [
+      "Stats at max level, up to Elite 1"
+    ],
+    "statNumbersAboveFold": 0,
+    "screens": 2.8
+  },
+  {
+    "operator": "Fang (3★)",
+    "size": "mobile-390x844",
+    "variant": "B  Balanced",
+    "pageHeight": 2618,
+    "aboveFold": [],
+    "statNumbersAboveFold": 0,
+    "screens": 3.1
+  },
+  {
+    "operator": "Fang (3★)",
+    "size": "mobile-390x844",
+    "variant": "C  Impression first",
+    "pageHeight": 1982,
+    "aboveFold": [],
+    "statNumbersAboveFold": 0,
+    "screens": 2.3
+  }
+]

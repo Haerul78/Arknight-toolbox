@@ -1,0 +1,92 @@
+/* Swiss/editorial system shared by Home, Operators and Materials.
+   Square cells like the tiles of an Arknights stage map: --cell is one column wide AND one
+   row tall, so every band built on grid-auto-rows: var(--cell) lands on the visible lines. */
+.swiss {
+    --m: 24px;
+    --cols: 12;
+    --cell: calc((100vw - 2 * var(--m)) / var(--cols));
+    --ink: #000;
+    --line: color-mix(in oklab, var(--ink) 12%, transparent);
+    position: relative;
+    color: var(--ink);
+    font-family: var(--font-display);
+}
+
+@media (max-width: 767px) {
+    .swiss {
+        --m: 16px;
+        --cols: 4;
+    }
+}
+
+.swiss-lines {
+    position: absolute;
+    inset: 0 var(--m);
+    pointer-events: none;
+    background-image:
+        linear-gradient(to right, var(--line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: var(--cell) var(--cell);
+    border-right: 1px solid var(--line);
+}
+
+/* one band of the page: whole rows of cells */
+.swiss-band {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), var(--cell));
+    grid-auto-rows: var(--cell);
+    margin-inline: var(--m);
+}
+
+/* ---- type scale (sizes are fractions of a cell, so type and grid scale together) ---- */
+
+/* 10–12px label: mono, uppercase, wide tracking */
+.swiss-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.45;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+/* page titles on inner pages: one line, two cells tall; sized so a ~9-letter word spans
+   the full 4 columns on phones and about 11 of 12 on desktop */
+.swiss-title {
+    font-size: calc(var(--cell) * 0.68);
+    font-weight: 500;
+    line-height: 0.8;
+    letter-spacing: -0.055em;
+    text-transform: uppercase;
+}
+
+/* big list rows (Home sections, operator names) */
+.swiss-row {
+    font-size: calc(var(--cell) * 0.5);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+}
+
+/* counters */
+.swiss-number {
+    font-size: calc(var(--cell) * 0.62);
+    font-weight: 400;
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 768px) {
+    .swiss-title { font-size: calc(var(--cell) * 1.95); }
+    .swiss-row { font-size: calc(var(--cell) * 0.78); }
+    .swiss-number { font-size: calc(var(--cell) * 0.66); }
+}
+
+/* .swiss-rule-t / .swiss-rule-y live in index.css as @utility so variants like last: work */
+
+/* dense reference pages (operator dossier): blocks snap to half a cell */
+.dossier {
+    --u: calc(var(--cell) / 2);
+}
