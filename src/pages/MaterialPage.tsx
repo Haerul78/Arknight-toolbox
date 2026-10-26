@@ -1,71 +1,111 @@
-import { useState } from "react"
 import { motion } from "framer-motion"
-import { SearchX } from "lucide-react"
-import materials from "@/data/materials.json"
-import MaterialCard from "@/components/MaterialCard"
-import PageHeader from "@/components/PageHeader"
-import SearchInput from "@/components/SearchInput"
-import FilterChip from "@/components/FilterChip"
-import { rarityColor, rarityNumber } from "@/lib/rarity"
+import { Search, X } from "lucide-react"
+import meta from "@/data/meta.json"
+import { Band, CellToggle, Label, SectionHeader, SwissPage } from "@/components/swiss"
+import CountUp from "@/components/CountUp"
+import ChainChart from "@/components/materials/ChainChart"
+import TokenGroup from "@/components/materials/TokenGroup"
+import MaterialIcon from "@/components/materials/MaterialIcon"
+import { general, useMaterialFilter } from "@/components/materials/useMaterialFilter"
+import { materialById } from "@/lib/materials"
+import type { MaterialCategory } from "@/types/Material"
 
-const RARITIES = ["TIER_1", "TIER_2", "TIER_3", "TIER_4", "TIER_5", "TIER_6"]
-const STAGGERED = 24
+const generated = meta.materials.generatedAt.slice(0, 10)
 
-const container = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.03, delayChildren: 0.4 } },
-}
-
-const item = {
-    hidden: { opacity: 0, y: 12 },
-    show: { opacity: 1, y: 0 },
-}
+// one toggle per section, shown with an item that stands for it
+const TOGGLES: { key: MaterialCategory; label: string; icon: string }[] = [
+    { key: "crafting", label: "Crafting", icon: "30135" },
+    { key: "chip", label: "Chips", icon: "3243" },
+    { key: "record", label: "Records", icon: "2004" },
+    { key: "summary", label: "Summaries", icon: "3303" },
+    { key: "module", label: "Modules", icon: "mod_unlock_token" },
+    { key: "classToken", label: "Class tokens", icon: "tier6_sniper" },
+    { key: "operatorToken", label: "Op. tokens", icon: "p_char_103_angel" },
+]
 
 export default function MaterialPage() {
-    const [search, setSearch] = useState("")
-    const [rarity, setRarity] = useState<string | null>(null)
-
-    const filteredMaterials = materials.filter((mat) =>
-        mat.name.toLowerCase().includes(search.toLowerCase()) &&
-        (!rarity || mat.rarity === rarity)
-    )
+    const filter = useMaterialFilter()
+    const { search, setSearch, category, setCategory } = filter
 
     return (
-        <section className="px-6 py-12 md:px-12">
-            <PageHeader kicker="Depot" title="Materials" count={filteredMaterials.length} />
+        <SwissPage>
+            {/* ---- title ---- */}
+            <Band rows={3} aria-labelledby="materials-title">
+                <Label className="col-span-2 self-center md:col-span-4">(Depot)<br />Every upgrade material on file</Label>
+                <Label className="col-span-2 self-center text-right md:col-span-4 md:col-start-9">
+                    <span className="hidden md:inline">Data generated </span>{generated}<br />EN gamedata
+                </Label>
+                <h1 id="materials-title" className="swiss-title col-span-full row-span-2 row-start-2 flex items-end overflow-hidden pb-[0.04em]">
+                    <motion.span initial={{ y: "105%" }} animate={{ y: "0%" }} transition={{ duration: 0.9, delay: 0.45, ease: [0.22, 1, 0.36, 1] }} className="block">
+                        Materials
+                    </motion.span>
+                </h1>
+            </Band>
 
-            <div className="mb-8 flex flex-col gap-4">
-                <SearchInput value={search} onChange={setSearch} placeholder="Search materials..." />
-                <div className="flex flex-wrap gap-2">
-                    {RARITIES.map((r) => (
-                        <FilterChip key={r} label={`Tier ${rarityNumber(r)}`} active={rarity === r} onClick={() => setRarity(rarity === r ? null : r)}>
-                            <span className="h-2.5 w-2.5 rotate-45" style={{ background: rarityColor[r] }} />
-                            <span className="font-barlow text-sm font-semibold tracking-wider">T{rarityNumber(r)}</span>
-                        </FilterChip>
-                    ))}
-                </div>
-            </div>
+            {/* ---- filters ---- */}
+            <section aria-label="Filter materials">
+                <SectionHeader
+                    index={1}
+                    caption="Filter"
+                    aside={
+                        <Label as="span">
+                            Showing <CountUp value={filter.generalCount} /> of {general.length}
+                            {search.trim() && filter.tokenMatches.length > 0 && <>, {filter.tokenMatches.length} {filter.tokenMatches.length === 1 ? "token" : "tokens"}</>}
+                            {filter.filtering && (
+                                <button type="button" onClick={filter.clear} className="ml-3 underline underline-offset-2 hover:no-underline">Clear</button>
+                            )}
+                        </Label>
+                    }
+                />
+                <Band className="swiss-rule-y">
+                    <label className="col-span-full flex items-center gap-3 px-1 md:col-span-4">
+                        <Search size={18} aria-hidden className="shrink-0" />
+                        <span className="sr-only">Search materials</span>
+                        <input
+                            type="search"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="Material or operator"
+                            className="min-w-0 flex-1 border-b border-(--ink) bg-transparent py-1 text-lg outline-none [&::-webkit-search-cancel-button]:appearance-none placeholder:font-mono placeholder:text-xs placeholder:uppercase placeholder:tracking-[0.14em] placeholder:text-(--ink)/50 focus-visible:border-primary"
+                        />
+                        {search && (
+                            <button type="button" onClick={() => setSearch("")} aria-label="Clear search" className="shrink-0 p-1"><X size={16} /></button>
+                        )}
+                    </label>
+                </Band>
+                <Band className="swiss-rule-y">
+                    <div className="col-span-full flex overflow-x-auto scrollbar-hide md:col-span-7">
+                        {TOGGLES.map((t) => (
+                            <CellToggle key={t.key} label={t.label} active={category === t.key} onClick={() => setCategory(category === t.key ? null : t.key)}>
+                                <span className="h-[40%] w-[40%]"><MaterialIcon material={materialById[t.icon]} /></span>
+                                <Label as="span" className="text-[10px]">{t.label}</Label>
+                            </CellToggle>
+                        ))}
+                    </div>
+                </Band>
+            </section>
 
-            {filteredMaterials.length === 0 ? (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center gap-3 py-20 text-muted-foreground">
-                    <SearchX size={40} />
-                    <p>No materials match these filters.</p>
-                </motion.div>
-            ) : (
-                <motion.div
-                    key={rarity ?? "all"}
-                    className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
-                    variants={container}
-                    initial="hidden"
-                    animate="show"
-                >
-                    {filteredMaterials.map((material, i) => (
-                        <motion.div variants={i < STAGGERED ? item : undefined} key={material.id}>
-                            <MaterialCard material={material} />
-                        </motion.div>
-                    ))}
-                </motion.div>
-            )}
-        </section>
+            {/* ---- depot ---- */}
+            <section aria-label="Materials">
+                <SectionHeader index={2} caption="Crafting chart" />
+                {filter.generalCount === 0 && filter.tokenMatches.length === 0 ? (
+                    <Band rows={2} className="swiss-rule-y">
+                        <div className="col-span-full flex flex-col justify-center gap-3 md:col-span-6">
+                            <p className="text-[calc(var(--cell)*0.27)] font-medium uppercase leading-none tracking-[-0.03em]">No material matches</p>
+                            <Label>
+                                Try another name or remove the filter.{" "}
+                                <button type="button" onClick={filter.clear} className="underline underline-offset-2">Clear filters</button>
+                            </Label>
+                        </div>
+                    </Band>
+                ) : (
+                    <>
+                        {filter.generalCount > 0 && <ChainChart filter={filter} />}
+                        <TokenGroup filter={filter} />
+                    </>
+                )}
+            </section>
+
+        </SwissPage>
     )
 }
