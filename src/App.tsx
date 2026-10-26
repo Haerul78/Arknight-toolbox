@@ -6,6 +6,7 @@ import Hero from './components/hero'
 import OperatorPage from './pages/OperatorPage'
 import MaterialPage from './pages/MaterialPage'
 import OperatorDetailPage from './pages/OperatorDetailPage'
+import MaterialDetailPage from './pages/MaterialDetailPage'
 import PageTransition from './components/PageTransition'
 import MusicPage from './pages/MusicPage'
 import MiniPlayer from './components/music/MiniPlayer'
@@ -21,6 +22,7 @@ function App() {
           <Route path="/operators" element={<OperatorPage />} />
           <Route path="/operators/:id" element={<OperatorDetailPage />} />
           <Route path="/materials" element={<MaterialPage />} />
+          <Route path="/materials/:id" element={<MaterialDetailPage />} />
           <Route path="/music" element={<MusicPage />} />
         </Route>
       </Routes>
