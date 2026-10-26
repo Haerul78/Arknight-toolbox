@@ -5,7 +5,7 @@ A fan-made reference site for Arknights (EN server): look up operators, see what
 ## Pages
 
 | Route | What it shows |
-|---|---|
+| --- | --- |
 | `/` | Home, with a link to each section |
 | `/operators` | Every operator: search by name, filter by class or rarity, sort by rarity, name or class |
 | `/operators/:id` | One operator: attributes, attack range, skills, talents, potential, promotion materials, modules, base skills, profile and art |
@@ -25,7 +25,7 @@ npm run dev       # http://localhost:5173
 The dev server also answers `/api/song/:cid`, so the music player works locally.
 
 | Command | Does |
-|---|---|
+| --- | --- |
 | `npm run build` | Type-checks and builds to `dist/` |
 | `npm run preview` | Serves the built `dist/` |
 | `npm run lint` | Runs ESLint |
@@ -45,7 +45,7 @@ The site reads JSON files in `src/data/`. They are generated from the game table
 Images are not in the repository. Download them with:
 
 | Command | Downloads | To |
-|---|---|---|
+| --- | --- | --- |
 | `npm run download:icons` | Item, skill, module and base skill icons | `public/items`, `public/skills`, `public/equip`, `public/building` |
 | `npm run download:art` | Full-body art for every elite and skin, as WebP at 1280px and 640px | `public/art` |
 | `npm run generate:music` | The album and song list (`src/data/music.json`) and album covers | `public/music-covers` |
